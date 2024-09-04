@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { FontStyles } from '@/fonts/fira-mono';
+import Nav from '@/components/nav';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -14,7 +15,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={FontStyles}>{children}</body>
+      <body className={FontStyles}>
+        <Nav />
+        {children}
+      </body>
     </html>
   );
 }
