@@ -1,33 +1,23 @@
 import React, { HTMLAttributes } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { navLinks } from '@/store/nav';
 
-import * as Sheet from '@/components/ui/sheet';
-
-import { Button } from './ui/button';
-import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
+
+import { navLinks } from '@/store/links';
+
+import SocialLinks from '@/components/social-links';
+
+import { Button } from '@/components/ui/button';
+import * as Sheet from '@/components/ui/sheet';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 
-export default function Nav() {
-  return (
-    <header className=' w-full p-5 lg:px-10 '>
-      <nav className='flex items-center justify-between'>
-        <Logo />
-        <Links className='max-lg:hidden' />
-        <MenuToggle />
-      </nav>
-    </header>
-  );
-}
-
+import { Menu } from 'lucide-react';
 const Logo = () => {
   return (
     <Image
       src='/j.svg'
       alt='Jenson Li Portfolio Logo'
-      className='dark:invert'
       width={60}
       height={60}
       priority
@@ -35,21 +25,25 @@ const Logo = () => {
   );
 };
 
-const Links = ({ className, ...props }: HTMLAttributes<HTMLOListElement>) => {
+const NavLinks = ({
+  className,
+  ...props
+}: HTMLAttributes<HTMLUListElement>) => {
   return (
-    <ol
-      className={cn('flex font-medium gap-5', className)}
+    <ul
+      className={cn('flex gap-7', className)}
       {...props}
     >
-      {navLinks.map((navLink, index) => (
-        <li
-          key={'nav-link-' + index}
-          className='text-foreground hover:text-foreground/80'
+      {navLinks.map((navLink) => (
+        <Button
+          key={'nav-link-' + navLink.label}
+          asChild
+          variant='link'
         >
-          <Link href={navLink.url}>{navLink.name}</Link>
-        </li>
+          <Link href={navLink.url}>{navLink.label}</Link>
+        </Button>
       ))}
-    </ol>
+    </ul>
   );
 };
 
@@ -58,7 +52,7 @@ const MenuToggle = () => {
     <Sheet.Sheet>
       <Sheet.SheetTrigger className='lg:hidden'>
         <Menu
-          size={35}
+          size={40}
           className='text-secondary'
         />
       </Sheet.SheetTrigger>
@@ -69,10 +63,29 @@ const MenuToggle = () => {
             <Sheet.SheetDescription>Nav Menu</Sheet.SheetDescription>
           </VisuallyHidden>
         </Sheet.SheetHeader>
-        <nav className='my-[25%] mx-[10%]'>
-          <Links className='flex flex-col gap-7' />
+
+        <nav className='py-[25%] mx-[10%] flex flex-col justify-between h-[100dvh] divide-y-2 divide-secondary-foreground'>
+          <NavLinks className='flex-col' />
+
+          <div className='py-10'>
+            <SocialLinks />
+          </div>
         </nav>
       </Sheet.SheetContent>
     </Sheet.Sheet>
   );
 };
+
+export default function Nav() {
+  return (
+    <header className=' w-full p-5 lg:px-10 '>
+      <nav className='flex items-center justify-between'>
+        <Logo />
+
+        <NavLinks className='max-lg:hidden' />
+
+        <MenuToggle />
+      </nav>
+    </header>
+  );
+}
