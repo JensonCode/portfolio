@@ -24,14 +24,16 @@
 
 @layer base {
   :root {
-    --background: 162 24% 67%;
-    --foreground: 210 100% 20%;
+    --background: 0 0% 0%;
+    --foreground: 215 18% 57%;
 
-    --primary: 210 100% 20%;
-    --primary-foreground: 0 0% 88%;
+    --primary: 215 18% 70%;
+    --primary-foreground: 10 10% 10%;
 
-    --secondary: 40 52% 85%;
-    --secondary-foreground: 180 25% 25%;
+    --secondary: 221 29% 30%;
+    --secondary-foreground: 218 29% 84%;
+
+    --icon: 40 50% 91%;
 
     --muted: 0 0% 96.1%;
     --muted-foreground: 0 0% 45.1%;

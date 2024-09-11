@@ -31,7 +31,7 @@ const NavLinks = ({
 }: HTMLAttributes<HTMLUListElement>) => {
   return (
     <ul
-      className={cn('flex gap-7', className)}
+      className={cn('flex gap-10', className)}
       {...props}
     >
       {navLinks.map((navLink) => (
@@ -39,6 +39,7 @@ const NavLinks = ({
           key={'nav-link-' + navLink.label}
           asChild
           variant='link'
+          size='link'
         >
           <Link href={navLink.url}>{navLink.label}</Link>
         </Button>
@@ -51,10 +52,7 @@ const MenuToggle = () => {
   return (
     <Sheet.Sheet>
       <Sheet.SheetTrigger className='lg:hidden'>
-        <Menu
-          size={40}
-          className='text-secondary'
-        />
+        <Menu className='size-10 text-icon' />
       </Sheet.SheetTrigger>
       <Sheet.SheetContent className='border-0'>
         <Sheet.SheetHeader>
