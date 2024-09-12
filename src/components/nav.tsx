@@ -51,7 +51,7 @@ const NavLinks = ({
 const MenuToggle = () => {
   return (
     <Sheet.Sheet>
-      <Sheet.SheetTrigger className='lg:hidden'>
+      <Sheet.SheetTrigger className='md:hidden'>
         <Menu className='size-10 text-icon' />
       </Sheet.SheetTrigger>
       <Sheet.SheetContent className='border-0'>
@@ -76,11 +76,11 @@ const MenuToggle = () => {
 
 export default function Nav() {
   return (
-    <header className=' w-full p-5 lg:px-10 '>
+    <header className='w-full py-2 px-5 md:px-10 bg-black/0 fixed top-0'>
       <nav className='flex items-center justify-between'>
         <Logo />
 
-        <NavLinks className='max-lg:hidden' />
+        <NavLinks className='max-md:hidden' />
 
         <MenuToggle />
       </nav>
