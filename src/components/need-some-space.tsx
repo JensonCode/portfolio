@@ -1,9 +1,9 @@
-import React, { useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 
 import * as THREE from 'three';
 import { GLTF } from 'three-stdlib';
 
-import { Points, useGLTF } from '@react-three/drei';
+import { Points, useGLTF, useScroll } from '@react-three/drei';
 
 import { EffectComposer, SelectiveBloom } from '@react-three/postprocessing';
 import { useFrame } from '@react-three/fiber';
@@ -37,42 +37,54 @@ export default function NeedSomeSpace() {
     return [positions, colors];
   }, [geometry]);
 
+  const scroll = useScroll();
+
+  useEffect(() => {
+    groupRef.current.rotation.x = -0.7;
+    groupRef.current.rotation.y = 0.2;
+  }, []);
+
   useFrame(({ clock }) => {
-    groupRef.current.rotation.z = clock.getElapsedTime() / 5;
-    // zoom in and out
-    // groupRef.current.scale.setScalar(
-    //   Math.sin(clock.getElapsedTime() / 2) + 1.5
-    // );
+    // groupRef.current.rotation.z = clock.getElapsedTime() / -15;
+    groupRef.current.rotation.y = clock.getElapsedTime() / 50;
+    groupRef.current.rotation.z = clock.getElapsedTime() / -10;
+
+    const scrollRef = scroll.offset;
+
+    groupRef.current.scale.setScalar(
+      Math.sin(clock.getElapsedTime()) / 20 + 1.5 + scrollRef
+    );
   });
 
   return (
     <group
       ref={groupRef}
       dispose={null}
+      position={[0.5, 0, 0]}
     >
       <pointLight
         ref={centerLightRef}
-        position={[0, 0, -1]}
+        position={[0, 0, 0]}
         intensity={0.5}
       />
       <Points
-        scale={1}
+        scale={0.03}
         positions={positions}
         colors={colors}
       >
         <pointsMaterial
           {...spaceGLTF.materials['Scene_-_Root']}
           transparent
-          opacity={0.4}
-          size={1}
+          opacity={0.3}
+          size={1.2}
         />
       </Points>
 
       <EffectComposer autoClear={false}>
         <SelectiveBloom
-          intensity={3}
-          luminanceThreshold={0.001}
-          luminanceSmoothing={0.225}
+          intensity={10}
+          luminanceThreshold={0.005}
+          luminanceSmoothing={0.025}
           lights={[centerLightRef]}
         />
       </EffectComposer>
@@ -99,11 +111,17 @@ const extractGeometry = (GLFT: NeedSomeSpaceGLTF): THREE.BufferGeometry => {
 const customizeColors = (positions: Float32Array): Float32Array => {
   const customizedColors = new Float32Array(positions.length);
 
-  const blue = { r: 0.24 / 1.95, g: 1.73 / 1.95, b: 1.95 / 1.95 }; // normalized blue range
-  const red = { r: 1.75 / 1.75, g: 0.69 / 1.75, b: 0.81 / 1.75 }; // normalized red range
-
+  // Define multiple color palettes
+  const palettes = [
+    // Blue to Red
+    { color1: { r: 0.1, g: 0.8, b: 1 }, color2: { r: 1, g: 0.4, b: 0.4 } },
+    // Purple to Orange
+    { color1: { r: 0.5, g: 0.2, b: 0.8 }, color2: { r: 1.0, g: 0.5, b: 0.0 } },
+    // Green to Yellow
+    { color1: { r: 0.0, g: 1.0, b: 0.0 }, color2: { r: 1.0, g: 1.0, b: 0.0 } },
+  ];
   const getNormalizedDistance = (x: number, y: number, z: number): number =>
-    Math.sqrt(x * x + y * y + z * z) / 150;
+    Math.sqrt(x * x + y * y + z * z) / 50;
 
   const color = new THREE.Color();
 
@@ -115,6 +133,8 @@ const customizeColors = (positions: Float32Array): Float32Array => {
       positions[i + 2]
     );
 
+    const palette = palettes[(i / 3) % palettes.length];
+
     // Combine sin and cos for a more complex spread
     const combinedValue =
       (Math.cos(distance * Math.PI * 2) + Math.sin(distance * Math.PI * 2)) / 2;
@@ -123,9 +143,9 @@ const customizeColors = (positions: Float32Array): Float32Array => {
     const finalDistance = (combinedValue + 1) / 2;
 
     color.setRGB(
-      blue.r + (red.r - blue.r) * finalDistance,
-      blue.g + (red.g - blue.g) * finalDistance,
-      blue.b + (red.b - blue.b) * finalDistance
+      palette.color1.r + (palette.color2.r - palette.color1.r) * finalDistance,
+      palette.color1.g + (palette.color2.g - palette.color1.g) * finalDistance,
+      palette.color1.b + (palette.color2.b - palette.color1.b) * finalDistance
     );
 
     color.toArray(customizedColors, i);

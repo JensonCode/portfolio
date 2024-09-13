@@ -1,10 +1,7 @@
 import type { Metadata } from 'next';
-import dynamic from 'next/dynamic';
 
 import './globals.css';
 import { FontStyles } from '@/fonts/fira-mono';
-
-const Scene = dynamic(() => import('@/components/scene'), { ssr: false });
 
 import Nav from '@/components/nav';
 import Footer from '@/components/footer';
@@ -25,7 +22,6 @@ export default function RootLayout({
         <Nav />
         {children}
         <Footer />
-        <Scene />
       </body>
     </html>
   );

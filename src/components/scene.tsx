@@ -5,20 +5,32 @@ import React, { Suspense } from 'react';
 import NeedSomeSpace from './need-some-space';
 
 import { Canvas } from '@react-three/fiber';
-import { Html, OrbitControls, useProgress } from '@react-three/drei';
+import { Html, Scroll, ScrollControls, useProgress } from '@react-three/drei';
 
 function Loader() {
   const { progress } = useProgress();
   return <Html center>{progress.toFixed(1)}%loaded</Html>;
 }
 
-export default function Scene() {
+type SceneProps = {
+  children: React.ReactNode;
+};
+
+export default function Scene({ children }: SceneProps) {
   return (
-    <Canvas className='fixed top-0 left-0 w-full h-[200vh]'>
-      <Suspense fallback={<Loader />}>
-        <NeedSomeSpace />
-      </Suspense>
-      {/* <OrbitControls /> */}
-    </Canvas>
+    <div className='w-full h-[100vh]'>
+      <Canvas>
+        <ScrollControls
+          damping={2}
+          pages={5}
+        >
+          <Suspense fallback={<Loader />}>
+            <NeedSomeSpace />
+          </Suspense>
+
+          <Scroll html>{children}</Scroll>
+        </ScrollControls>
+      </Canvas>
+    </div>
   );
 }
