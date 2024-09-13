@@ -2,9 +2,8 @@ import type { Metadata } from 'next';
 
 import './globals.css';
 import { FontStyles } from '@/fonts/fira-mono';
-
+import { cn } from '@/lib/utils';
 import Nav from '@/components/nav';
-import Footer from '@/components/footer';
 
 export const metadata: Metadata = {
   title: 'Jenson Li | Web Developer | Software Developer',
@@ -18,10 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={FontStyles}>
+      <body className={cn('h-full relative', FontStyles)}>
         <Nav />
         {children}
-        <Footer />
       </body>
     </html>
   );

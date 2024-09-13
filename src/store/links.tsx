@@ -1,23 +1,6 @@
 import { Github, Linkedin, Mail } from 'lucide-react';
 
-export const navLinks = [
-  {
-    label: 'About',
-    url: '/#about',
-  },
-  {
-    label: 'Experience',
-    url: '/#experience',
-  },
-  {
-    label: 'Projects',
-    url: '/#projects',
-  },
-  {
-    label: 'Contact',
-    url: '/#contact',
-  },
-];
+export const navLinks = ['About', 'Projects', 'Contact'];
 
 export const socialLinks = [
   {

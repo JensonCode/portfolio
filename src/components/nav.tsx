@@ -1,6 +1,7 @@
-import React, { HTMLAttributes } from 'react';
+'use client';
+
+import React, { HTMLAttributes, useEffect } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 
 import { cn } from '@/lib/utils';
 
@@ -13,6 +14,7 @@ import * as Sheet from '@/components/ui/sheet';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 
 import { Menu } from 'lucide-react';
+
 const Logo = () => {
   return (
     <Image
@@ -34,14 +36,22 @@ const NavLinks = ({
       className={cn('flex gap-10', className)}
       {...props}
     >
-      {navLinks.map((navLink) => (
+      {navLinks.map((navLink, index) => (
         <Button
-          key={'nav-link-' + navLink.label}
-          asChild
+          key={'nav-link-' + navLink}
           variant='link'
           size='link'
+          onClick={() => {
+            const scene = document.getElementById('scene');
+            const scrollControl = scene?.children[0].children[1];
+
+            scrollControl?.scrollTo({
+              top: (index + 1) * window.screen.height,
+              behavior: 'smooth',
+            });
+          }}
         >
-          <Link href={navLink.url}>{navLink.label}</Link>
+          {navLink}
         </Button>
       ))}
     </ul>
@@ -76,14 +86,12 @@ const MenuToggle = () => {
 
 export default function Nav() {
   return (
-    <header className='w-full py-2 px-5 md:px-10 bg-black/0 fixed top-0'>
-      <nav className='flex items-center justify-between'>
-        <Logo />
+    <nav className='absolute top-0 h-[10vh] flex items-center justify-between w-full py-2 px-5 md:px-10 bg-black/0 z-[10]'>
+      <Logo />
 
-        <NavLinks className='max-md:hidden' />
+      <NavLinks className='max-md:hidden' />
 
-        <MenuToggle />
-      </nav>
-    </header>
+      <MenuToggle />
+    </nav>
   );
 }

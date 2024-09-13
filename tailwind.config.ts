@@ -1,3 +1,4 @@
+import { DEFAULT } from '@react-three/fiber/dist/declarations/src/core/utils';
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
@@ -9,6 +10,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      dropShadow: {
+        DEFAULT: '2px 2px 2px rgb(255 255 255 / 0.5)',
+      },
+
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':

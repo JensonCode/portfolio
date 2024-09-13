@@ -5,11 +5,25 @@ import React, { Suspense } from 'react';
 import NeedSomeSpace from './need-some-space';
 
 import { Canvas } from '@react-three/fiber';
-import { Html, Scroll, ScrollControls, useProgress } from '@react-three/drei';
+import {
+  Html,
+  Preload,
+  Scroll,
+  ScrollControls,
+  useProgress,
+} from '@react-three/drei';
 
-function Loader() {
+export function Loader() {
   const { progress } = useProgress();
-  return <Html center>{progress.toFixed(1)}%loaded</Html>;
+  return (
+    <Html
+      center
+      className='text-xl flex flex-col items-center justify-center text-foreground/50 '
+    >
+      <span>space is preparing:</span>
+      {progress.toFixed(1)}% loaded
+    </Html>
+  );
 }
 
 type SceneProps = {
@@ -18,16 +32,16 @@ type SceneProps = {
 
 export default function Scene({ children }: SceneProps) {
   return (
-    <div className='w-full h-[100vh]'>
-      <Canvas>
+    <div className='absolute top-0 h-[100vh]'>
+      <Canvas id='scene'>
         <ScrollControls
-          damping={2}
-          pages={5}
+          damping={0.5}
+          pages={4}
         >
           <Suspense fallback={<Loader />}>
             <NeedSomeSpace />
+            <Preload />
           </Suspense>
-
           <Scroll html>{children}</Scroll>
         </ScrollControls>
       </Canvas>
