@@ -45,8 +45,12 @@ const NavLinks = ({
             const scene = document.getElementById('scene');
             const scrollControl = scene?.children[0].children[1];
 
+            const section = document.getElementById(navLink.toLowerCase())!;
+
+            console.log(section.offsetTop);
+
             scrollControl?.scrollTo({
-              top: (index + 1) * window.screen.height,
+              top: section.offsetTop + window.screen.height * 0.2,
               behavior: 'smooth',
             });
           }}
