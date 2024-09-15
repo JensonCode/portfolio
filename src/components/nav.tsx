@@ -5,8 +5,6 @@ import Image from 'next/image';
 
 import { cn } from '@/lib/utils';
 
-import { navLinks } from '@/store/links';
-
 import SocialLinks from '@/components/social-links';
 
 import { Button } from '@/components/ui/button';
@@ -14,6 +12,8 @@ import * as Sheet from '@/components/ui/sheet';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 
 import { Menu } from 'lucide-react';
+
+const navLinks = ['About', 'Projects', 'Contact'];
 
 const Logo = () => {
   return (
