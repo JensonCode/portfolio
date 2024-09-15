@@ -1,11 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: true,
+
   //React Three Fiber
   transpilePackages: ['three'],
 
   //GitHub Pages deploy config
-  reactStrictMode: true,
   basePath: '/portfolio',
+  assetPrefix: '/portfolio/',
 };
 
 export default nextConfig;
