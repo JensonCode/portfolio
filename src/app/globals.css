@@ -67,6 +67,12 @@
     @apply w-full;
   }
   section {
-    @apply min-h-screen w-full;
+    @apply min-h-screen w-full font-bold text-6xl py-[10%] px-[5%] flex flex-col space-y-2 drop-shadow;
+  }
+  section h4 {
+    @apply font-semibold text-2xl;
+  }
+  section p {
+    @apply font-medium text-xl break-all;
   }
 }

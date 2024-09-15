@@ -38,10 +38,10 @@ export default function Scene({ children }: SceneProps) {
           damping={0.5}
           pages={4}
         >
-          <Suspense fallback={<Loader />}>
+          {/* <Suspense fallback={<Loader />}>
             <NeedSomeSpace />
             <Preload />
-          </Suspense>
+          </Suspense> */}
           <Scroll html>{children}</Scroll>
         </ScrollControls>
       </Canvas>

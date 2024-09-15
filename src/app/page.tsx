@@ -1,5 +1,9 @@
 import dynamic from 'next/dynamic';
-const Scene = dynamic(() => import('@/components/scene'), { ssr: false });
+const Scene = dynamic(() => import('@/components/three/scene'), { ssr: false });
+
+import About from '@/components/sections/about';
+import Projects from '@/components/sections/projects';
+import Contact from '@/components/sections/contact';
 
 export default function HomePage() {
   return (
@@ -7,31 +11,18 @@ export default function HomePage() {
       <main>
         <section
           id='landing'
-          className='font-bold text-6xl py-[20%] px-[5%] flex flex-col space-y-2 drop-shadow'
+          className='py-[20%]'
         >
-          <p>Hi,</p>
-          <p>I&apos;m Jenson</p>
-          <p className='md:text-nowrap'>Web Developer</p>
+          <h1>Hi,</h1>
+          <h2>I&apos;m Jenson Li</h2>
+          <h2 className='md:text-nowrap'>Web Developer</h2>
         </section>
 
-        <section
-          id='about'
-          className='font-bold text-6xl py-[20%] px-[5%] flex flex-col space-y-2 drop-shadow'
-        >
-          about
-        </section>
-        <section
-          id='projects'
-          className='font-bold text-6xl py-[20%] px-[5%] flex flex-col space-y-2 drop-shadow'
-        >
-          projects
-        </section>
-        <section
-          id='contact'
-          className='font-bold text-6xl py-[20%] px-[5%] flex flex-col space-y-2 drop-shadow'
-        >
-          contact
-        </section>
+        <About />
+
+        <Projects />
+
+        <Contact />
       </main>
     </Scene>
   );
