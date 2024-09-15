@@ -7,7 +7,7 @@ const nextConfig = {
 
   //GitHub Pages deploy config
   basePath: '/portfolio',
-  assetPrefix: '/portfolio/',
+  output: 'export',
 };
 
 export default nextConfig;
