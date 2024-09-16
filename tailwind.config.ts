@@ -11,7 +11,8 @@ const config: Config = {
   theme: {
     extend: {
       dropShadow: {
-        DEFAULT: '2px 2px 2px rgb(255 255 255 / 0.5)',
+        DEFAULT: '2px 2px 1px rgb(255 255 255 / 0.8)',
+        sm: '1px 1px 1px rgb(255 255 255 / 0.5)',
       },
 
       backgroundImage: {
