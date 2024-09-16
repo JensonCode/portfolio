@@ -1,18 +1,18 @@
 import React from 'react';
 
 const technologies = [
+  'Node.js',
+  'Go',
   'JavaScript',
   'TypeScript',
   'React',
   'Next.js',
-  'Node.js',
-  'Go',
 ];
 
 export default function About() {
   return (
     <section id='about'>
-      <h3>About Me</h3>
+      <h2>About Me</h2>
 
       <p>
         Hello, I&apos;m Jenson Li, a Web Developer based in Toronto. I love
@@ -28,7 +28,7 @@ export default function About() {
         <a
           target='_blank'
           href='https://booga.com.hk/'
-          className='bg-white/80 hover:bg-white/20'
+          className='bg-white/60 hover:bg-white/30'
         >
           start-up
         </a>
@@ -39,15 +39,16 @@ export default function About() {
         I am actively seeking a full-time developer position to further apply my
         skills and continue growing in the tech industry.
       </p>
-      <br />
 
-      <p>Technologies I Work With:</p>
+      <div className='bg-primary/70 text-primary-foreground p-2 rounded-md'>
+        <h3>Technologies I Work With:</h3>
 
-      <ul className='font-normal text-lg grid grid-cols-2'>
-        {technologies.map((technology) => (
-          <li key={technology}>{technology}</li>
-        ))}
-      </ul>
+        <ul className='font-medium text-base md:text-lg grid grid-cols-2'>
+          {technologies.map((technology) => (
+            <li key={technology}>{technology}</li>
+          ))}
+        </ul>
+      </div>
     </section>
   );
 }
