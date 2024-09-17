@@ -14,8 +14,8 @@ export const getAllNotableProjects = (): NotableProject[] => {
   const projects = slugs.map((slug) => {
     const projectPath = join(dir, slug);
     const file = fs.readFileSync(projectPath, "utf8");
-
-    return matter(file).data as NotableProject;
+    const { data, content, excerpt } = matter(file);
+    return { ...data, content, excerpt } as NotableProject;
   });
 
   return projects;
@@ -28,8 +28,8 @@ export const getAllOtherProjects = (): Project[] => {
   const projects = slugs.map((slug) => {
     const projectPath = join(dir, slug);
     const file = fs.readFileSync(projectPath, "utf8");
-
-    return matter(file).data as Project;
+    const { data, content, excerpt } = matter(file);
+    return { ...data, content, excerpt } as Project;
   });
 
   return projects;
