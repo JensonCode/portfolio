@@ -20,7 +20,7 @@ import { cn } from "@/lib/utils";
 
 export const ProjectCard = ({ project }: { project: Project }) => {
   return (
-    <Card className="relative flex flex-col bg-card/100">
+    <Card className="relative flex flex-col bg-card/90">
       <CardHeader className="flex flex-row justify-between">
         <div className="flex items-center gap-2">
           {project.logo && (
@@ -96,7 +96,7 @@ export const ProjectCard = ({ project }: { project: Project }) => {
       </CardHeader>
 
       <CardContent className="flex-grow">
-        <CardDescription className="mb-4 text-base font-medium">
+        <CardDescription className="text-base font-medium">
           {project.description}
         </CardDescription>
       </CardContent>

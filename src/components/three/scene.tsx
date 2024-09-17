@@ -34,11 +34,11 @@ export default function Scene({ children }: SceneProps) {
   return (
     <div className="absolute top-0 h-[100vh] w-full">
       <Canvas id="scene">
-        <ScrollControls damping={0.5} pages={4}>
-          {/* <Suspense fallback={<Loader />}>
+        <ScrollControls damping={0.5} pages={6}>
+          <Suspense fallback={<Loader />}>
             <NeedSomeSpace />
             <Preload />
-          </Suspense> */}
+          </Suspense>
           <Scroll html style={{ width: "100%" }}>
             {children}
           </Scroll>
