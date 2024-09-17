@@ -1,25 +1,25 @@
-'use client';
+"use client";
 
-import React, { HTMLAttributes, useEffect } from 'react';
-import Image from 'next/image';
+import React, { HTMLAttributes } from "react";
+import Image from "next/image";
 
-import { cn } from '@/lib/utils';
+import { cn } from "@/lib/utils";
 
-import SocialLinks from '@/components/social-links';
+import SocialLinks from "@/components/social-links";
 
-import { Button } from '@/components/ui/button';
-import * as Sheet from '@/components/ui/sheet';
-import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
+import { Button } from "@/components/ui/button";
+import * as Sheet from "@/components/ui/sheet";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
-import { Menu } from 'lucide-react';
+import { Menu } from "lucide-react";
 
-const navLinks = ['About', 'Projects', 'Contact'];
+const navLinks = ["About", "Projects", "Contact"];
 
 const Logo = () => {
   return (
     <Image
-      src='/j.svg'
-      alt='Jenson Li Portfolio Logo'
+      src="/j.svg"
+      alt="Jenson Li Portfolio Logo"
       width={60}
       height={60}
       priority
@@ -32,17 +32,14 @@ const NavLinks = ({
   ...props
 }: HTMLAttributes<HTMLUListElement>) => {
   return (
-    <ul
-      className={cn('flex gap-10', className)}
-      {...props}
-    >
+    <ul className={cn("flex gap-10", className)} {...props}>
       {navLinks.map((navLink, index) => (
         <Button
-          key={'nav-link-' + navLink}
-          variant='link'
-          size='link'
+          key={"nav-link-" + navLink}
+          variant="link"
+          size="link"
           onClick={() => {
-            const scene = document.getElementById('scene');
+            const scene = document.getElementById("scene");
             const scrollControl = scene?.children[0].children[1];
 
             const section = document.getElementById(navLink.toLowerCase())!;
@@ -51,7 +48,7 @@ const NavLinks = ({
 
             scrollControl?.scrollTo({
               top: section.offsetTop + window.screen.height * 0.2,
-              behavior: 'smooth',
+              behavior: "smooth",
             });
           }}
         >
@@ -65,10 +62,10 @@ const NavLinks = ({
 const MenuToggle = () => {
   return (
     <Sheet.Sheet>
-      <Sheet.SheetTrigger className='md:hidden'>
-        <Menu className='size-10 text-icon' />
+      <Sheet.SheetTrigger className="md:hidden">
+        <Menu className="size-10 text-icon" />
       </Sheet.SheetTrigger>
-      <Sheet.SheetContent className='border-0'>
+      <Sheet.SheetContent className="border-0">
         <Sheet.SheetHeader>
           <VisuallyHidden>
             <Sheet.SheetTitle>Menu</Sheet.SheetTitle>
@@ -76,10 +73,10 @@ const MenuToggle = () => {
           </VisuallyHidden>
         </Sheet.SheetHeader>
 
-        <nav className='py-[25%] mx-[10%] flex flex-col justify-between h-[100dvh] divide-y-2 divide-secondary-foreground'>
-          <NavLinks className='flex-col' />
+        <nav className="mx-[10%] flex h-[100dvh] flex-col justify-between divide-y-2 divide-secondary-foreground py-[25%]">
+          <NavLinks className="flex-col" />
 
-          <div className='py-10'>
+          <div className="py-10">
             <SocialLinks />
           </div>
         </nav>
@@ -90,10 +87,10 @@ const MenuToggle = () => {
 
 export default function Nav() {
   return (
-    <nav className='absolute top-0 h-[10vh] flex items-center justify-between w-full py-2 px-5 md:px-10 bg-black/0 z-[10]'>
+    <nav className="absolute top-0 z-[10] flex h-[10vh] w-full items-center justify-between bg-black/0 px-5 py-2 md:px-10">
       <Logo />
 
-      <NavLinks className='max-md:hidden' />
+      <NavLinks className="max-md:hidden" />
 
       <MenuToggle />
     </nav>

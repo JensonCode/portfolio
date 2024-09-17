@@ -1,24 +1,24 @@
-'use client';
+"use client";
 
-import React, { Suspense } from 'react';
+import React, { Suspense } from "react";
 
-import NeedSomeSpace from './need-some-space';
+import NeedSomeSpace from "./need-some-space";
 
-import { Canvas } from '@react-three/fiber';
+import { Canvas } from "@react-three/fiber";
 import {
   Html,
   Preload,
   Scroll,
   ScrollControls,
   useProgress,
-} from '@react-three/drei';
+} from "@react-three/drei";
 
 export function Loader() {
   const { progress } = useProgress();
   return (
     <Html
       center
-      className='text-xl flex flex-col items-center justify-center text-foreground/50 '
+      className="flex w-full flex-col items-center justify-center text-xl text-foreground/50"
     >
       <span>space is preparing:</span>
       {progress.toFixed(1)}% loaded
@@ -32,17 +32,16 @@ type SceneProps = {
 
 export default function Scene({ children }: SceneProps) {
   return (
-    <div className='absolute top-0 h-[100vh]'>
-      <Canvas id='scene'>
-        <ScrollControls
-          damping={0.5}
-          pages={4}
-        >
+    <div className="absolute top-0 h-[100vh] w-full">
+      <Canvas id="scene">
+        <ScrollControls damping={0.5} pages={4}>
           {/* <Suspense fallback={<Loader />}>
             <NeedSomeSpace />
             <Preload />
           </Suspense> */}
-          <Scroll html>{children}</Scroll>
+          <Scroll html style={{ width: "100%" }}>
+            {children}
+          </Scroll>
         </ScrollControls>
       </Canvas>
     </div>
