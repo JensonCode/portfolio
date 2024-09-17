@@ -1,25 +1,58 @@
 import dynamic from "next/dynamic";
 const Scene = dynamic(() => import("@/components/three/scene"), { ssr: false });
 
-import About from "@/components/sections/about";
-import Projects from "@/components/sections/projects";
-import Contact from "@/components/sections/contact";
+import MarkdownContainer from "@/components/markdown-container";
+
+import {
+  getSectionById,
+  getAllNotableProjects,
+  getAllOtherProjects,
+} from "@/lib/content";
+import { ProjectCard } from "@/components/project-card";
 
 export default function HomePage() {
+  const landingContent = getSectionById("landing");
+  const aboutContent = getSectionById("about");
+
+  const notableProjects = getAllNotableProjects();
+  const otherProjects = getAllOtherProjects();
   return (
     <Scene>
       <main className="mx-auto w-full max-w-[1200px]">
-        <section id="landing" className="py-[25%]">
-          <h1>Hi,</h1>
-          <h2>I&apos;m Jenson Li</h2>
-          <h2 className="md:text-nowrap">Web Developer</h2>
+        <section id="landing">
+          <MarkdownContainer>{landingContent}</MarkdownContainer>
         </section>
 
-        <About />
+        <section id="about">
+          <MarkdownContainer>{aboutContent}</MarkdownContainer>
+        </section>
 
-        <Projects />
+        <section id="projects">
+          <h2>Projects</h2>
 
-        <Contact />
+          <div className="py-4">
+            <h3>Notable Projects</h3>
+
+            <div className="my-4 grid gap-8 md:grid-cols-2">
+              {notableProjects.map((notableProject) => (
+                <ProjectCard
+                  key={notableProject.title}
+                  project={notableProject}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div className="py-4">
+            <h3>Other Projects</h3>
+
+            <div className="my-4 grid gap-8 md:grid-flow-col">
+              {otherProjects.map((otherProject) => (
+                <ProjectCard key={otherProject.title} project={otherProject} />
+              ))}
+            </div>
+          </div>
+        </section>
       </main>
     </Scene>
   );

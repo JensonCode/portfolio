@@ -17,18 +17,18 @@
 @layer base {
   :root {
     --background: 0 0% 0%;
-    --foreground: 215 18% 57%;
+    --foreground: 40 50% 91%;
 
-    --primary: 215 18% 70%;
-    --primary-foreground: 10 10% 10%;
+    --primary: 220 90% 56%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 221 29% 30%;
-    --secondary-foreground: 218 29% 84%;
+    --secondary: 220 50% 91%;
+    --secondary-foreground: 222 64% 43%;
 
     --icon: 40 50% 91%;
 
     --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 13%;
+    --muted-foreground: 40 50% 81%;
 
     --accent: 0 0% 96.1%;
     --accent-foreground: 0 0% 9%;
@@ -36,8 +36,8 @@
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --card: 215 18% 70%;
-    --card-foreground: 10 10% 10%;
+    --card: 0 0% 0%;
+    --card-foreground: 255 100% 100%;
 
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 3.9%;
@@ -63,17 +63,16 @@
   body {
     @apply bg-background text-foreground;
   }
-  h1,
+  h1 {
+    @apply mb-4 text-6xl font-bold drop-shadow;
+  }
   h2 {
-    @apply text-6xl font-bold drop-shadow;
+    @apply mb-4 text-4xl font-bold drop-shadow;
   }
   h3 {
-    @apply text-lg font-semibold drop-shadow-sm md:text-2xl;
+    @apply mt-4 text-3xl font-bold drop-shadow-sm;
   }
   section {
-    @apply flex min-h-screen w-full flex-col space-y-2 px-[5%] py-[10%];
-  }
-  #about p {
-    @apply break-words rounded-md bg-primary/70 p-2 text-base font-medium text-primary-foreground md:text-xl;
+    @apply flex min-h-screen w-full flex-col justify-center px-[5%] max-md:my-[10%];
   }
 }

@@ -1,14 +1,20 @@
 import fs from "fs";
 import { join } from "path";
-
 import { NotableProject, Project } from "@/interfaces/projects";
-
 import matter from "gray-matter";
 
 const contentDirectory = join(process.cwd(), "content");
 
+export const getSectionById = (id: string) => {
+  const filePath = join(contentDirectory, `${id}.md`);
+  const file = fs.readFileSync(filePath, "utf8");
+  return file;
+};
+
+const projectDirectory = join(contentDirectory, "projects");
+
 export const getAllNotableProjects = (): NotableProject[] => {
-  const dir = join(contentDirectory, "notable-projects");
+  const dir = join(projectDirectory, "notable-projects");
   const slugs = fs.readdirSync(dir);
 
   const projects = slugs.map((slug) => {
@@ -22,7 +28,7 @@ export const getAllNotableProjects = (): NotableProject[] => {
 };
 
 export const getAllOtherProjects = (): Project[] => {
-  const dir = join(contentDirectory, "other-projects");
+  const dir = join(projectDirectory, "other-projects");
   const slugs = fs.readdirSync(dir);
 
   const projects = slugs.map((slug) => {

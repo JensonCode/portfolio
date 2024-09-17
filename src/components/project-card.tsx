@@ -20,7 +20,12 @@ import { cn } from "@/lib/utils";
 
 export const ProjectCard = ({ project }: { project: Project }) => {
   return (
-    <Card className="relative flex flex-col bg-card/90">
+    <Card
+      className={cn(
+        "relative flex flex-col bg-card/60",
+        project.screenshot ? "bg-black/60" : "bg-black/40",
+      )}
+    >
       <CardHeader className="flex flex-row justify-between">
         <div className="flex items-center gap-2">
           {project.logo && (
@@ -33,7 +38,9 @@ export const ProjectCard = ({ project }: { project: Project }) => {
             />
           )}
 
-          <CardTitle>{project.title}</CardTitle>
+          <CardTitle className="m-0 text-secondary drop-shadow-none">
+            {project.title}
+          </CardTitle>
         </div>
 
         <div className="flex gap-2">
@@ -55,7 +62,7 @@ export const ProjectCard = ({ project }: { project: Project }) => {
                 </Link>
               </Button>
 
-              <AnchorButtonOverlay className="opacity-[5%] transition-opacity duration-300 peer-hover/link:opacity-90">
+              <AnchorButtonOverlay className="opacity-[15%] transition-opacity duration-300 peer-hover/link:opacity-100">
                 {project.screenshot && (
                   <Image
                     src={project.screenshot}
