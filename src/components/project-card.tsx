@@ -38,7 +38,7 @@ export const ProjectCard = ({ project }: { project: Project }) => {
             />
           )}
 
-          <CardTitle className="m-0 text-secondary drop-shadow-none">
+          <CardTitle className="m-0 drop-shadow-none">
             {project.title}
           </CardTitle>
         </div>
@@ -110,9 +110,7 @@ export const ProjectCard = ({ project }: { project: Project }) => {
 
       <CardFooter className="flex flex-wrap justify-end gap-2">
         {project.tech.map((tech) => (
-          <Badge key={tech} variant="secondary">
-            {tech}
-          </Badge>
+          <Badge key={tech}>{tech}</Badge>
         ))}
       </CardFooter>
     </Card>

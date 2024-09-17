@@ -19,11 +19,11 @@
     --background: 0 0% 0%;
     --foreground: 40 50% 91%;
 
-    --primary: 220 90% 56%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 40 50% 91%;
+    --primary-foreground: 217 19% 27%;
 
-    --secondary: 220 50% 91%;
-    --secondary-foreground: 222 64% 43%;
+    --secondary: 221 29% 30%;
+    --secondary-foreground: 218 29% 84%;
 
     --icon: 40 50% 91%;
 
@@ -37,7 +37,7 @@
     --destructive-foreground: 0 0% 98%;
 
     --card: 0 0% 0%;
-    --card-foreground: 255 100% 100%;
+    --card-foreground: 41 51% 64%;
 
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 3.9%;
