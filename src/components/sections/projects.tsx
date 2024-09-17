@@ -1,7 +1,9 @@
+import { getAllNotableProjects, getAllOtherProjects } from "@/lib/projects";
 import { ProjectCard } from "../project-card";
-import { notableProjects, otherProjects } from "@/interfaces/projects";
 
 export default function Projects() {
+  const notableProjects = getAllNotableProjects();
+  const otherProjects = getAllOtherProjects();
   return (
     <section id="projects">
       <h2>Projects</h2>
