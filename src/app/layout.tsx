@@ -5,6 +5,8 @@ import { FontStyles } from "@/fonts/fira-mono";
 import { cn } from "@/lib/utils";
 import Nav from "@/components/nav";
 import Footer from "@/components/footer";
+import { ScrollControlPageProvider } from "@/contexts/scrollControl-page-context";
+import { getProjectLength } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Jenson Li | Web Developer | Software Developer",
@@ -16,12 +18,20 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const npLength = getProjectLength("notable-projects");
+  const opLength = getProjectLength("other-projects");
+
+  //landing and contact occupy 1 page for each
+  const basePageNumber = 2 + Math.round(npLength * 0.65 + opLength * 0.43);
+
   return (
     <html lang="en">
       <body className={cn("relative h-full", FontStyles)}>
-        <Nav />
-        {children}
-        <Footer />
+        <ScrollControlPageProvider basePageNumber={basePageNumber}>
+          <Nav />
+          {children}
+          <Footer />
+        </ScrollControlPageProvider>
       </body>
     </html>
   );

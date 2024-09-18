@@ -13,6 +13,10 @@ import {
   useProgress,
 } from "@react-three/drei";
 
+import { useScrollControlPageContext } from "@/contexts/scrollControl-page-context";
+
+import { useMediaQuery } from "react-responsive";
+
 export function Loader() {
   const { progress } = useProgress();
   return (
@@ -31,10 +35,21 @@ type SceneProps = {
 };
 
 export default function Scene({ children }: SceneProps) {
+  const { pageNumber } = useScrollControlPageContext();
+
+  const isSM = useMediaQuery({
+    query: "(max-width: 1024px)",
+  });
+
+  let extraPageNumber = 0;
+  if (isSM) {
+    extraPageNumber += 2;
+  }
+
   return (
     <div className="absolute top-0 h-[100vh] w-full">
       <Canvas id="scene">
-        <ScrollControls damping={0.5} pages={6}>
+        <ScrollControls damping={0.5} pages={pageNumber + extraPageNumber}>
           <Suspense fallback={<Loader />}>
             <NeedSomeSpace />
             <Preload />

@@ -13,6 +13,12 @@ export const getSectionById = (id: string) => {
 
 const projectDirectory = join(contentDirectory, "projects");
 
+export const getProjectLength = (dir: string): number => {
+  const location = join(projectDirectory, dir);
+  const slugs = fs.readdirSync(location);
+  return slugs.length;
+};
+
 export const getAllNotableProjects = (): NotableProject[] => {
   const dir = join(projectDirectory, "notable-projects");
   const slugs = fs.readdirSync(dir);
