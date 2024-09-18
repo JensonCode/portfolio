@@ -12,6 +12,8 @@ import * as Sheet from "@/components/ui/sheet";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
 import { Menu } from "lucide-react";
+import { useScrollControlPageContext } from "@/contexts/scrollControl-page-context";
+import { useMediaQuery } from "react-responsive";
 
 const navLinks = ["About", "Projects", "Contact"];
 
@@ -31,25 +33,37 @@ const NavLinks = ({
   className,
   ...props
 }: HTMLAttributes<HTMLUListElement>) => {
+  const isMD = useMediaQuery({
+    query: "(min-width: 1024px)",
+  });
+
+  const distanceMap: Record<string, number> = {
+    about: 1,
+    projects: isMD ? 2 : 3,
+    contact: isMD ? 3 : 5,
+  };
+
   return (
     <ul className={cn("flex gap-10", className)} {...props}>
-      {navLinks.map((navLink, index) => (
+      {navLinks.map((navLink) => (
         <Button
           key={"nav-link-" + navLink}
           variant="link"
           size="link"
           onClick={() => {
-            const scene = document.getElementById("scene");
-            const scrollControl = scene?.children[0].children[1];
+            const scrollControl =
+              document.getElementById("scene")?.children[0].children[1];
 
-            const section = document.getElementById(navLink.toLowerCase())!;
+            const screenRatio = window.screen.height * 1.18;
+            const scrollDistance = distanceMap[navLink.toLowerCase()];
 
-            console.log(section.offsetTop);
+            if (scrollControl) {
+              scrollControl?.scrollTo({
+                top: scrollDistance * screenRatio,
 
-            scrollControl?.scrollTo({
-              top: section.offsetTop + window.screen.height * 0.2,
-              behavior: "smooth",
-            });
+                behavior: "smooth",
+              });
+            }
           }}
         >
           {navLink}
@@ -74,10 +88,14 @@ const MenuToggle = () => {
         </Sheet.SheetHeader>
 
         <nav className="mx-[10%] flex h-[100dvh] flex-col justify-between divide-y-2 divide-secondary-foreground py-[25%]">
-          <NavLinks className="flex-col" />
+          <Sheet.SheetClose asChild>
+            <NavLinks className="flex-col" />
+          </Sheet.SheetClose>
 
           <div className="py-10">
-            <SocialLinks />
+            <Sheet.SheetClose asChild>
+              <SocialLinks />
+            </Sheet.SheetClose>
           </div>
         </nav>
       </Sheet.SheetContent>
