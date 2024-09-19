@@ -15,15 +15,27 @@ import { Menu } from "lucide-react";
 
 const navLinks = ["About", "Projects", "Contact"];
 
+const scrollToSection = (id: string) => {
+  const section = document.getElementById(id.toLowerCase());
+  section?.scrollIntoView({ block: "start", behavior: "smooth" });
+};
+
 const Logo = () => {
   return (
-    <Image
-      src="/j.svg"
-      alt="Jenson Li Portfolio Logo"
-      width={60}
-      height={60}
-      priority
-    />
+    <Button
+      variant="icon"
+      size="icon"
+      className="size-16"
+      onClick={() => scrollToSection("landing")}
+    >
+      <Image
+        src="/j.svg"
+        alt="Jenson Li Portfolio Logo"
+        width={60}
+        height={60}
+        priority
+      />
+    </Button>
   );
 };
 
@@ -38,7 +50,7 @@ const NavLinks = ({
           key={"nav-link-" + navLink}
           variant="link"
           size="link"
-          onClick={() => {}}
+          onClick={() => scrollToSection(navLink)}
         >
           {navLink}
         </Button>
@@ -79,7 +91,7 @@ const MenuToggle = () => {
 
 export default function Nav() {
   return (
-    <nav className="sticky top-0 z-[10] flex h-[10vh] w-full items-center justify-between bg-black/0 px-5 py-2 md:px-10">
+    <nav className="sticky top-0 z-[10] flex h-[10vh] w-full items-center justify-between bg-transparent px-5 py-2 md:px-10">
       <Logo />
 
       <NavLinks className="max-md:hidden" />
