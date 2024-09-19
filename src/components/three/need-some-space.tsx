@@ -1,43 +1,41 @@
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from "react";
 
-import * as THREE from 'three';
-import { GLTF } from 'three-stdlib';
+import * as THREE from "three";
+import { GLTF } from "three-stdlib";
 
-import { Points, useGLTF, useScroll } from '@react-three/drei';
+import { Points, useGLTF } from "@react-three/drei";
 
-import { EffectComposer, SelectiveBloom } from '@react-three/postprocessing';
-import { useFrame } from '@react-three/fiber';
+import { EffectComposer, SelectiveBloom } from "@react-three/postprocessing";
+import { useFrame } from "@react-three/fiber";
 
 type NeedSomeSpaceGLTF = GLTF & {
   nodes: {
     Object_2: THREE.Points;
   };
   materials: {
-    ['Scene_-_Root']: THREE.PointsMaterial;
+    ["Scene_-_Root"]: THREE.PointsMaterial;
   };
 };
 
 //https://sketchfab.com/3d-models/need-some-space-d6521362b37b48e3a82bce4911409303
-useGLTF.preload('/need_some_space.glb');
+useGLTF.preload("/need_some_space.glb");
 
 export default function NeedSomeSpace() {
   const groupRef = useRef<THREE.Group>(null!);
   const centerLightRef = useRef<THREE.PointLight>(null!);
 
-  const spaceGLTF = useGLTF('/need_some_space.glb') as NeedSomeSpaceGLTF;
+  const spaceGLTF = useGLTF("/need_some_space.glb") as NeedSomeSpaceGLTF;
 
   const geometry = extractGeometry(spaceGLTF);
   geometry.center();
 
   const [positions, colors] = useMemo(() => {
-    const positions = new Float32Array(geometry.getAttribute('position').array);
+    const positions = new Float32Array(geometry.getAttribute("position").array);
 
     const colors = customizeColors(positions);
 
     return [positions, colors];
   }, [geometry]);
-
-  const scroll = useScroll();
 
   useEffect(() => {
     groupRef.current.rotation.x = -0.7;
@@ -49,31 +47,17 @@ export default function NeedSomeSpace() {
     groupRef.current.rotation.y = clock.getElapsedTime() / 50;
     groupRef.current.rotation.z = clock.getElapsedTime() / -10;
 
-    const scrollRef = scroll.offset;
-
     groupRef.current.scale.setScalar(
-      Math.sin(clock.getElapsedTime()) / 20 + 1.5 + scrollRef
+      Math.sin(clock.getElapsedTime()) / 20 + 1.5,
     );
   });
 
   return (
-    <group
-      ref={groupRef}
-      dispose={null}
-      position={[0.5, 0, 0]}
-    >
-      <pointLight
-        ref={centerLightRef}
-        position={[0, 0, 0]}
-        intensity={0.5}
-      />
-      <Points
-        scale={0.03}
-        positions={positions}
-        colors={colors}
-      >
+    <group ref={groupRef} dispose={null} position={[0.5, 0, 0]}>
+      <pointLight ref={centerLightRef} position={[0, 0, 0]} intensity={0.5} />
+      <Points scale={0.03} positions={positions} colors={colors}>
         <pointsMaterial
-          {...spaceGLTF.materials['Scene_-_Root']}
+          {...spaceGLTF.materials["Scene_-_Root"]}
           transparent
           opacity={0.3}
           size={1.2}
@@ -96,13 +80,13 @@ const extractGeometry = (GLFT: NeedSomeSpaceGLTF): THREE.BufferGeometry => {
   const geometry = new THREE.BufferGeometry();
 
   const positionVertices = new Float32Array(
-    GLFT.nodes.Object_2.geometry.getAttribute('position').array
+    GLFT.nodes.Object_2.geometry.getAttribute("position").array,
   );
 
   // itemSize = 3 because there are 3 values (components) per vertex
   geometry.setAttribute(
-    'position',
-    new THREE.BufferAttribute(positionVertices, 3)
+    "position",
+    new THREE.BufferAttribute(positionVertices, 3),
   );
 
   return geometry;
@@ -130,7 +114,7 @@ const customizeColors = (positions: Float32Array): Float32Array => {
     let distance = getNormalizedDistance(
       positions[i],
       positions[i + 1],
-      positions[i + 2]
+      positions[i + 2],
     );
 
     const palette = palettes[(i / 3) % palettes.length];
@@ -145,7 +129,7 @@ const customizeColors = (positions: Float32Array): Float32Array => {
     color.setRGB(
       palette.color1.r + (palette.color2.r - palette.color1.r) * finalDistance,
       palette.color1.g + (palette.color2.g - palette.color1.g) * finalDistance,
-      palette.color1.b + (palette.color2.b - palette.color1.b) * finalDistance
+      palette.color1.b + (palette.color2.b - palette.color1.b) * finalDistance,
     );
 
     color.toArray(customizedColors, i);

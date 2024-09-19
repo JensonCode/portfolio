@@ -73,6 +73,6 @@
     @apply mt-4 text-3xl font-bold drop-shadow-sm;
   }
   section {
-    @apply flex min-h-screen w-full flex-col justify-center px-[5%] max-md:my-[10%];
+    @apply flex min-h-[100vh] w-full flex-col justify-center px-[5%];
   }
 }

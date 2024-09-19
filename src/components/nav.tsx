@@ -12,8 +12,6 @@ import * as Sheet from "@/components/ui/sheet";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
 import { Menu } from "lucide-react";
-import { useScrollControlPageContext } from "@/contexts/scrollControl-page-context";
-import { useMediaQuery } from "react-responsive";
 
 const navLinks = ["About", "Projects", "Contact"];
 
@@ -33,16 +31,6 @@ const NavLinks = ({
   className,
   ...props
 }: HTMLAttributes<HTMLUListElement>) => {
-  const isMD = useMediaQuery({
-    query: "(min-width: 1024px)",
-  });
-
-  const distanceMap: Record<string, number> = {
-    about: 1,
-    projects: isMD ? 2 : 3,
-    contact: isMD ? 3 : 5,
-  };
-
   return (
     <ul className={cn("flex gap-10", className)} {...props}>
       {navLinks.map((navLink) => (
@@ -50,21 +38,7 @@ const NavLinks = ({
           key={"nav-link-" + navLink}
           variant="link"
           size="link"
-          onClick={() => {
-            const scrollControl =
-              document.getElementById("scene")?.children[0].children[1];
-
-            const screenRatio = window.screen.height * 1.18;
-            const scrollDistance = distanceMap[navLink.toLowerCase()];
-
-            if (scrollControl) {
-              scrollControl?.scrollTo({
-                top: scrollDistance * screenRatio,
-
-                behavior: "smooth",
-              });
-            }
-          }}
+          onClick={() => {}}
         >
           {navLink}
         </Button>
@@ -105,7 +79,7 @@ const MenuToggle = () => {
 
 export default function Nav() {
   return (
-    <nav className="absolute top-0 z-[10] flex h-[10vh] w-full items-center justify-between bg-black/0 px-5 py-2 md:px-10">
+    <nav className="sticky top-0 z-[10] flex h-[10vh] w-full items-center justify-between bg-black/0 px-5 py-2 md:px-10">
       <Logo />
 
       <NavLinks className="max-md:hidden" />

@@ -5,20 +5,11 @@ import React, { Suspense } from "react";
 import NeedSomeSpace from "./need-some-space";
 
 import { Canvas } from "@react-three/fiber";
-import {
-  Html,
-  Preload,
-  Scroll,
-  ScrollControls,
-  useProgress,
-} from "@react-three/drei";
-
-import { useScrollControlPageContext } from "@/contexts/scrollControl-page-context";
-
-import { useMediaQuery } from "react-responsive";
+import { Html, Preload, useProgress } from "@react-three/drei";
 
 export function Loader() {
   const { progress } = useProgress();
+
   return (
     <Html
       center
@@ -30,34 +21,14 @@ export function Loader() {
   );
 }
 
-type SceneProps = {
-  children: React.ReactNode;
-};
-
-export default function Scene({ children }: SceneProps) {
-  const { pageNumber } = useScrollControlPageContext();
-
-  const isSM = useMediaQuery({
-    query: "(max-width: 1024px)",
-  });
-
-  let extraPageNumber = 0;
-  if (isSM) {
-    extraPageNumber += 2;
-  }
-
+export default function Scene() {
   return (
-    <div className="absolute top-0 h-[100vh] w-full">
+    <div className="fixed top-0 h-[100vh] w-[100vw]">
       <Canvas id="scene">
-        <ScrollControls damping={0.5} pages={pageNumber + extraPageNumber}>
-          <Suspense fallback={<Loader />}>
-            <NeedSomeSpace />
-            <Preload />
-          </Suspense>
-          <Scroll html style={{ width: "100%" }}>
-            {children}
-          </Scroll>
-        </ScrollControls>
+        <Suspense fallback={<Loader />}>
+          <NeedSomeSpace />
+          <Preload />
+        </Suspense>
       </Canvas>
     </div>
   );

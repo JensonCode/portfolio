@@ -1,3 +1,5 @@
+## About Me
+
 ### Background
 
 Hello, I'm Jenson Li, a Web Developer based in Toronto. I love building applications that solve real-world problems. My journey in tech began in 2022 when I decided to pursue a new career path by enrolling in a Computer Programming diploma program.
