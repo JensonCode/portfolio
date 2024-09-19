@@ -63,16 +63,4 @@
   body {
     @apply bg-background text-foreground;
   }
-  h1 {
-    @apply mb-4 text-6xl font-bold drop-shadow;
-  }
-  h2 {
-    @apply mb-4 text-4xl font-bold drop-shadow;
-  }
-  h3 {
-    @apply mt-4 text-3xl font-bold drop-shadow-sm;
-  }
-  section {
-    @apply flex min-h-[100vh] w-full flex-col justify-center px-[5%];
-  }
 }

@@ -15,23 +15,31 @@ export default function HomePage() {
   const notableProjects = getAllNotableProjects();
   const otherProjects = getAllOtherProjects();
   return (
-    <main
-      id="main-content"
-      className="mx-auto grid w-full max-w-[1200px] gap-20"
-    >
-      <section id="landing">
+    <main className="mx-auto grid w-full max-w-[1200px] gap-32">
+      <section
+        id="landing"
+        className="relative flex min-h-[90vh] w-full flex-col justify-center gap-10 px-[5%]"
+      >
         <MarkdownContainer>{landingContent}</MarkdownContainer>
       </section>
 
-      <section id="about">
+      <section
+        id="about"
+        className="relative flex min-h-[90vh] w-full flex-col justify-center gap-10 px-[5%]"
+      >
         <MarkdownContainer>{aboutContent}</MarkdownContainer>
       </section>
 
-      <section id="projects">
-        <h2>Projects</h2>
+      <section
+        id="projects"
+        className="relative flex min-h-[90vh] w-full flex-col justify-center gap-10 px-[5%]"
+      >
+        <h2 className="mb-4 text-4xl font-bold drop-shadow">Projects</h2>
 
         <div className="py-4">
-          <h3>Notable Projects</h3>
+          <h3 className="mt-4 text-3xl font-bold drop-shadow-sm">
+            Notable Projects
+          </h3>
 
           <div className="my-4 grid gap-8 md:grid-cols-2">
             {notableProjects.map((notableProject) => (
@@ -44,7 +52,9 @@ export default function HomePage() {
         </div>
 
         <div className="py-4">
-          <h3>Other Projects</h3>
+          <h3 className="mt-4 text-3xl font-bold drop-shadow-sm">
+            Other Projects
+          </h3>
 
           <div className="my-4 grid gap-8 md:grid-flow-col">
             {otherProjects.map((otherProject) => (
@@ -54,15 +64,18 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="contact" className="gap-10">
-        <h2>Contact Me</h2>
+      <section
+        id="contact"
+        className="relative flex min-h-[90vh] w-full flex-col justify-center gap-10 px-[5%]"
+      >
+        <h2 className="mb-4 text-4xl font-bold drop-shadow">Contact Me</h2>
 
         <p className="my-0 bg-black/60 text-xl md:text-2xl">
           I would love to hear from you! Whether you have a question, want to
           collaborate, or just want to say hi, feel free to get in touch.
         </p>
 
-        <Button size="lg" className="mx-auto" asChild>
+        <Button size="lg" className="mx-auto" asChild disabled={false}>
           <a href="mailto:lclcodingjj@gmail.com">lclcodingjj@gmail.com</a>
         </Button>
       </section>
