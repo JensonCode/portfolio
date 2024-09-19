@@ -1,13 +1,13 @@
 "use client";
 
-import React, { Suspense } from "react";
+import React, { Suspense, useLayoutEffect, useRef } from "react";
 
 import NeedSomeSpace from "./need-some-space";
 
-import { Canvas } from "@react-three/fiber";
+import { Canvas, createRoot } from "@react-three/fiber";
 import { Html, Preload, useProgress } from "@react-three/drei";
 
-export function Loader() {
+function Loader() {
   const { progress } = useProgress();
 
   return (
@@ -23,13 +23,11 @@ export function Loader() {
 
 export default function Scene() {
   return (
-    <div className="fixed top-0 h-[100vh] w-[100vw]">
-      <Canvas id="scene">
-        <Suspense fallback={<Loader />}>
-          <NeedSomeSpace />
-          <Preload />
-        </Suspense>
-      </Canvas>
-    </div>
+    <Canvas eventSource={document.getElementById("main")!} eventPrefix="client">
+      <Suspense fallback={<Loader />}>
+        <NeedSomeSpace />
+        <Preload />
+      </Suspense>
+    </Canvas>
   );
 }

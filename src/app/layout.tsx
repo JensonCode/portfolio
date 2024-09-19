@@ -12,6 +12,7 @@ export const metadata: Metadata = {
 };
 
 import dynamic from "next/dynamic";
+
 const Scene = dynamic(() => import("@/components/three/scene"), { ssr: false });
 
 export default async function RootLayout({
@@ -22,10 +23,14 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={cn("relative h-full", FontStyles)}>
-        <Scene />
-        <Nav />
-        {children}
-        <Footer />
+        <div className="pointer-events-none fixed z-0 h-[100vh] w-[100vw]">
+          <Scene />
+        </div>
+        <div id="main" className="pointer-events-auto h-full w-full z-10">
+          <Nav />
+          {children}
+          <Footer />
+        </div>
       </body>
     </html>
   );

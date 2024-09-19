@@ -15,24 +15,24 @@ export default function HomePage() {
   const notableProjects = getAllNotableProjects();
   const otherProjects = getAllOtherProjects();
   return (
-    <main className="mx-auto grid w-full max-w-[1200px] gap-32">
+    <main className="z-10 grid w-full gap-32 px-[5%] md:px-[15%]">
       <section
         id="landing"
-        className="relative flex min-h-[90vh] w-full flex-col justify-center gap-10 px-[5%]"
+        className="relative flex min-h-[90vh] w-full flex-col justify-center gap-10"
       >
         <MarkdownContainer>{landingContent}</MarkdownContainer>
       </section>
 
       <section
         id="about"
-        className="relative flex min-h-[90vh] w-full flex-col justify-center gap-10 px-[5%]"
+        className="relative flex min-h-[90vh] w-full flex-col justify-center gap-10"
       >
         <MarkdownContainer>{aboutContent}</MarkdownContainer>
       </section>
 
       <section
         id="projects"
-        className="relative flex min-h-[90vh] w-full flex-col justify-center gap-10 px-[5%]"
+        className="relative flex min-h-[90vh] w-full flex-col justify-center gap-10"
       >
         <h2 className="mb-4 text-4xl font-bold drop-shadow">Projects</h2>
 
@@ -66,7 +66,7 @@ export default function HomePage() {
 
       <section
         id="contact"
-        className="relative flex min-h-[90vh] w-full flex-col justify-center gap-10 px-[5%]"
+        className="relative flex min-h-[90vh] w-full flex-col justify-center gap-10"
       >
         <h2 className="mb-4 text-4xl font-bold drop-shadow">Contact Me</h2>
 

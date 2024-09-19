@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 
 import * as THREE from "three";
 import { GLTF } from "three-stdlib";
@@ -6,7 +6,7 @@ import { GLTF } from "three-stdlib";
 import { Points, useGLTF } from "@react-three/drei";
 
 import { EffectComposer, SelectiveBloom } from "@react-three/postprocessing";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 
 type NeedSomeSpaceGLTF = GLTF & {
   nodes: {
@@ -22,38 +22,58 @@ useGLTF.preload("/need_some_space.glb");
 
 export default function NeedSomeSpace() {
   const groupRef = useRef<THREE.Group>(null!);
-  const centerLightRef = useRef<THREE.PointLight>(null!);
 
+  const centerLightRef = useRef<THREE.PointLight>(null!);
+  // const { pointer } = useThree();
   const spaceGLTF = useGLTF("/need_some_space.glb") as NeedSomeSpaceGLTF;
 
-  const geometry = extractGeometry(spaceGLTF);
-  geometry.center();
-
   const [positions, colors] = useMemo(() => {
+    const geometry = extractGeometry(spaceGLTF);
+    geometry.center();
+
     const positions = new Float32Array(geometry.getAttribute("position").array);
 
     const colors = customizeColors(positions);
 
     return [positions, colors];
-  }, [geometry]);
+  }, [spaceGLTF]);
 
-  useEffect(() => {
-    groupRef.current.rotation.x = -0.7;
-    groupRef.current.rotation.y = 0.2;
-  }, []);
+  useFrame(({ pointer, clock }) => {
+    const time = clock.getElapsedTime();
 
-  useFrame(({ clock }) => {
-    // groupRef.current.rotation.z = clock.getElapsedTime() / -15;
-    groupRef.current.rotation.y = clock.getElapsedTime() / 50;
-    groupRef.current.rotation.z = clock.getElapsedTime() / -10;
+    //keep rotating
+    groupRef.current.rotation.y = time / 100;
+    groupRef.current.rotation.z = time / -20;
 
+    //mouse movement
+    const targetRotationX = pointer.y * Math.PI * 0.2;
+    const targetRotationY = pointer.x * Math.PI * 0.2;
+
+    groupRef.current.rotation.x = THREE.MathUtils.lerp(
+      groupRef.current.rotation.x,
+      targetRotationX,
+      0.1, // Adjust for smoothness (lower = smoother)
+    );
+
+    groupRef.current.rotation.y = THREE.MathUtils.lerp(
+      groupRef.current.rotation.y,
+      -targetRotationY,
+      0.1,
+    );
+
+    //increase scale when scroll
     groupRef.current.scale.setScalar(
-      Math.sin(clock.getElapsedTime()) / 20 + 1.5,
+      Math.sin(time) / 20 + 1.5 + window.scrollY * 0.001,
     );
   });
 
   return (
-    <group ref={groupRef} dispose={null} position={[0.5, 0, 0]}>
+    <group
+      ref={groupRef}
+      dispose={null}
+      position={[0.5, 0, 0]}
+      rotation={[7, 2, 0]}
+    >
       <pointLight ref={centerLightRef} position={[0, 0, 0]} intensity={0.5} />
       <Points scale={0.03} positions={positions} colors={colors}>
         <pointsMaterial
